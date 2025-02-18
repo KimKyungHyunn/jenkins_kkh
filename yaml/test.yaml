@@ -24,11 +24,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: test-app
+  name: group1-team7-jenkins-kkh
   namespace: group1-team7
 spec:
   selector:
-    app: test-app
+    app: group1-team7-jenkins-kkh
   ports:
     - protocol: TCP
       port: 80
