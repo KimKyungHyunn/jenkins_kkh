@@ -2,9 +2,11 @@ pipeline {
     agent any
     environment {
         REGISTRY = "k8s-vga-worker1:5000"
-        IMAGE_NAME = "demo-img-team5-jhk"
+        IMAGE_NAME = "group1-team7-jenkins-kkh"
         IMAGE_TAG = "latest"
-        NAMESPACE = "under76-test"d
+        NAMESPACE = "group1-team7"
+        JAVA_HOME = "/usr/local/java21"
+        PATH = "${JAVA_HOME}/bin:${env.PATH}"
     }
     stages {
         stage('Checkout') {
@@ -44,7 +46,7 @@ pipeline {
             steps {
                 script {
                     // Kubernetes Deployment and Service 생성 및 적용 (1일차 교육때 사용한 deploy & service 생성 yaml 파일 등록하여 사용)
-                    sh "kubectl apply -f ./yaml/demo-app.yaml -n ${NAMESPACE}"
+                    sh "kubectl apply -f ./yaml/test-app.yaml -n ${NAMESPACE}"
                 }
             }
         }
@@ -52,7 +54,7 @@ pipeline {
             steps {
                 script {
                     // Kubenetes에서 특정 Deployment의 컨테이너 이미지를 업데이트 (아래 이름은 중복되지 않게 주의하여 지정, deployment, selector 이름으로)
-                    sh "kubectl set image deployment/group1-team7-kkh-deployment group1-team7-kkh=${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} --namespace=${NAMESPACE}"
+                    sh "kubectl set image deployment/group1-team7-jenkins-kkh group1-team7-jenkins-kkh=${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} --namespace=${NAMESPACE}"
                 }
             }
         }
